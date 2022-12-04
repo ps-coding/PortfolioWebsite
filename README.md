@@ -1,27 +1,61 @@
 # PortfolioWebsite
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.0.5.
+## About
 
-## Development server
+This is my **personal portfolio** website. It is online **[here](https://shahprasham.com)**.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+This website was created using **Angular and Firebase** and built from *scratch*.
 
-## Code scaffolding
+It has the following features:
+- **Accounts** with [OAuth 2.0](https://oauth.net/2) (sign in with google)
+- **Authorization status** (anonymous, user, admin, superadmin)
+- **Role-based** features
+  - Anonymous individuals can only view
+  - Users can comment and delete their own comments
+  - Admins can create posts, add comments, delete comments on their posts, and delete their own posts and comments
+  - Superadmins can create posts, add comments, manage admins, manage about-page content, and delete any post or comment
+  - Both *client-side route guards and UI updates* and *server-side security rules* protect the site
+- Complete and full-featured **blog**
+  - Title (HTML allowed)
+  - Image
+  - Body (HTML allowed)
+  - Summary (HTML allowed)
+  - *Instant updates* with new comments/posts, edited posts, and deleted comments/posts reflected instantaneously
+  - Custom-built *full-text search*
+  - HTML is *sanitized* before it is saved and again when it is loaded
+- Dynamic **about** page
+  - Content such as age and grade *dynamically update*
+  - All other *content is editable from the admin panel* by superadmins without changing the code
+  - *Instant updates* when a superadmin edits the content of the about page
+- **Admin panel**
+  - Only accessible to superadmins
+  - Can add and remove admins (*change in permission will instantly reflect* on client and server)
+  - Can add and remove achievements and hobbies using a *custom-built interface (not just editing HTML)*
+- Click **game**
+  - Very simple click game that tells you your clicks per second and how many times you have clicked the button
+  - It stores your highest score and the number of times clicked in *local storage* so you can continue where you left off
+  - There is a reset button that clears local storage for you
+- **Material design** with a simple and user-friendly interface
+- **PWA**
+  - The website is a progressive web app (PWA)
+  - It can *run without internet connection*
+  - It can be installed as an app on phones and computers though supported browsers
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+While it is very advanced for a personal site, it is a **great template** to use for a personal or business website.
 
-## Build
+## Setup
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+For a live and fully-functional version, visit (https://shahprasham.com).
 
-## Running unit tests
+### Local
+1. For a local version, make sure you have the *LTS version* of [Node.js](https://nodejs.org) and NPM installed (NPM should come with your Node.js installation)
+2. *Clone* the repository
+3. Inside the repository directory, run `npm install` - this will download all of the packages and development dependencies used
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+#### Non-PWA version
+4. Run `ng serve` to launch a local version
+5. Open (http://localhost:4200) to see the website
 
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+#### PWA version
+4. Run `ng build` to build the website
+5. Use any *http server to host the website* in the *dist/* directory
