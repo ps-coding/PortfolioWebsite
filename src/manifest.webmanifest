@@ -1,0 +1,30 @@
+{
+  "name": "Prasham's Portfolio",
+  "short_name": "Prasham Shah",
+  "description": "This is Prasham Shah's portfolio website. On this website you can find information about him and his achievements, as well as read his blogs. Prasham Shah consistently updates this website and uses it as his personal portfolio.",
+  "theme_color": "#1976d2",
+  "background_color": "#fafafa",
+  "display": "standalone",
+  "scope": "./",
+  "start_url": "./",
+  "icons": [
+    {
+      "src": "assets/icons/apple-touch-icon-180x180.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "assets/icons/pwa-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "assets/icons/pwa-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    }
+  ]
+}

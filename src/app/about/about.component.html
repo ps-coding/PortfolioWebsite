@@ -1,0 +1,115 @@
+<div class="content">
+  <h1>About</h1>
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>General Information</mat-panel-title>
+      </mat-expansion-panel-header>
+      <ng-template matExpansionPanelContent>
+        <mat-card>
+          <mat-card-content class="flex-item">
+            <ul class="left-item">
+              <li><pre>Name: Prasham Shah</pre></li>
+              <li>
+                <pre>Age: {{ getAge() }} years old</pre>
+              </li>
+              <li>
+                <pre>Education: <ng-container *ngIf="getGrade().inSchool; else notInSchool">{{ getGrade().year }}<sup>th</sup> grade</ng-container><ng-template #notInSchool>In college</ng-template></pre>
+              </li>
+            </ul>
+            <div class="right-item">
+              <img src="./assets/images/prasham.png" alt="Prasham's Picture" />
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </ng-template>
+    </mat-expansion-panel>
+    <ng-container *ngIf="onlineService.isOnline | async; else noInternet">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>Achievements</mat-panel-title>
+        </mat-expansion-panel-header>
+        <ng-template matExpansionPanelContent>
+          <ng-container
+            *ngIf="!isLoadingAchievements; else loadingAchievements"
+          >
+            <ng-container *ngIf="achievements.size; else noAchievements">
+              <ul>
+                <ng-container
+                  *ngFor="let achievementGroup of achievements | keyvalue"
+                >
+                  <li>
+                    <pre>{{ achievementGroup.key }}</pre>
+                  </li>
+                  <ul *ngFor="let achievement of achievementGroup.value">
+                    <li>
+                      <pre>{{ achievement }}</pre>
+                    </li>
+                  </ul>
+                </ng-container>
+              </ul>
+            </ng-container>
+          </ng-container>
+          <ng-template #loadingAchievements>
+            <div align="center">
+              <mat-spinner diameter="50"></mat-spinner>
+            </div>
+          </ng-template>
+          <ng-template #noAchievements>
+            <p>
+              No achievements have been found! This could mean that you are not
+              connected to the internet (which you can easily test by checking
+              your network settings or trying to open another website). This
+              could also mean that no achievements exist or that our server is
+              down (not as likely, but possible), in which case please check
+              back later.
+            </p>
+          </ng-template>
+        </ng-template>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>Hobbies</mat-panel-title>
+        </mat-expansion-panel-header>
+        <ng-template matExpansionPanelContent>
+          <ng-container *ngIf="!isLoadingHobbies; else loadingHobbies">
+            <ng-container *ngIf="hobbies.size; else noHobbies">
+              <ul>
+                <ng-container *ngFor="let hobbyGroup of hobbies | keyvalue">
+                  <li>
+                    <pre>{{ hobbyGroup.key }}</pre>
+                  </li>
+                  <ul *ngFor="let achievement of hobbyGroup.value">
+                    <li>
+                      <pre>{{ achievement }}</pre>
+                    </li>
+                  </ul>
+                </ng-container>
+              </ul>
+            </ng-container>
+          </ng-container>
+          <ng-template #loadingHobbies>
+            <div align="center">
+              <mat-spinner diameter="50"></mat-spinner>
+            </div>
+          </ng-template>
+          <ng-template #noHobbies>
+            <p>
+              No achievements have been found! This could mean that you are not
+              connected to the internet (which you can easily test by checking
+              your network settings or trying to open another website). This
+              could also mean that no achievements exist or that our server is
+              down (not as likely, but possible), in which case please check
+              back later.
+            </p>
+          </ng-template>
+        </ng-template>
+      </mat-expansion-panel>
+    </ng-container>
+    <ng-template #noInternet>
+      <br />
+      <app-no-internet></app-no-internet>
+    </ng-template>
+  </mat-accordion>
+</div>

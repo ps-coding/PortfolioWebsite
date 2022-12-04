@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "portfoliowebsite-796c7": {
+      "hosting": {
+        "PortfolioWebsite": [
+          "portfoliowebsite-796c7"
+        ]
+      }
+    }
+  }
+}

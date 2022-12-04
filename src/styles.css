@@ -1,0 +1,73 @@
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: #1976d2;
+}
+
+pre {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.snackbar {
+  overflow: auto;
+}
+
+.snackbar span {
+  color: white;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow: auto;
+}
+
+.snackbar button {
+  overflow: hidden;
+}
+
+button[mat-button] span {
+  overflow: hidden;
+}
+
+.snackbar.danger-snackbar {
+  background-color: red;
+}
+
+.snackbar.success-snackbar {
+  background-color: green;
+}
+
+.content {
+  color: white;
+  margin: 0.6rem;
+}
+
+.confirm-dialog .button-container button {
+  width: 50%;
+}
+
+.confirm-dialog .button-container button.no-button {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.confirm-dialog .button-container button.yes-button {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow: auto;
+}
+
+mat-card {
+  overflow: auto;
+}
+
+mat-card-content {
+  overflow: auto;
+}
+
+mat-expansion-panel {
+  overflow: auto;
+}

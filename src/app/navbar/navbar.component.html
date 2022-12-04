@@ -1,0 +1,47 @@
+<nav>
+  <mat-toolbar>
+    <mat-toolbar-row>
+      <h1>
+        <a routerLink="/" class="title removethird"> Prasham's Portfolio </a>
+      </h1>
+      <span class="spacer removethird"></span>
+      <div *ngIf="auth.user; else showLogin">
+        <span class="removesecond space-after">
+          <span class="removefirst">Welcome</span>
+          {{ auth.user?.displayName }}<span class="removefirst">!</span>
+        </span>
+        <a
+          *ngIf="
+            (onlineService.isOnline | async) &&
+            (auth.isAdmin || auth.isSuperadmin)
+          "
+          class="space-after"
+          routerLink="/blog/new"
+          color="accent"
+          mat-flat-button
+        >
+          Write a Post
+        </a>
+        <button (click)="logout()" mat-button>Logout</button>
+      </div>
+      <ng-template #showLogin>
+        <button (click)="login()" mat-button>Login</button>
+      </ng-template>
+    </mat-toolbar-row>
+    <mat-toolbar-row>
+      <a routerLink="/" mat-button>Home</a>
+      <a routerLink="/about" mat-button>About</a>
+      <a *ngIf="onlineService.isOnline | async" routerLink="/blog" mat-button>
+        Blog
+      </a>
+      <a routerLink="/game" mat-button>Game</a>
+      <a
+        *ngIf="auth.isSuperadmin && (onlineService.isOnline | async)"
+        routerLink="/admins"
+        mat-button
+      >
+        Admins
+      </a>
+    </mat-toolbar-row>
+  </mat-toolbar>
+</nav>

@@ -1,0 +1,238 @@
+<div class="content">
+  <ng-container *ngIf="onlineService.isOnline | async; else noInternet">
+    <ng-container *ngIf="!isLoading; else loading">
+      <ng-container *ngIf="post; else error">
+        <ng-container *ngIf="!editing; else editView">
+          <h1>View Post</h1>
+          <mat-card>
+            <img
+              src="{{ post?.image }}"
+              alt="{{ post?.title }}"
+              class="title-image"
+            />
+            <pre [innerHTML]="post?.title"></pre>
+            <pre><small>By {{ post?.author }} at {{ post?.published?.toDate() | date: "medium" }}</small></pre>
+            <ng-container *ngIf="post?.edited">
+              <pre><small>Edited at {{ post?.edited?.toDate() | date: "medium" }}</small></pre>
+            </ng-container>
+            <mat-card-content>
+              <pre [innerHTML]="post?.content"></pre>
+            </mat-card-content>
+            <mat-card-actions align="end">
+              <button
+                mat-icon-button
+                aria-label="copy"
+                matTooltip="copy blog link"
+                (click)="copy()"
+              >
+                <mat-icon>link</mat-icon>
+              </button>
+              <ng-container *ngIf="isAuthor(post) || auth.isSuperadmin">
+                <button
+                  mat-icon-button
+                  aria-label="edit"
+                  matTooltip="edit post"
+                  (click)="startEdit()"
+                >
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button
+                  mat-icon-button
+                  aria-label="delete"
+                  matTooltip="delete post"
+                  (click)="delete()"
+                >
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </ng-container>
+            </mat-card-actions>
+          </mat-card>
+          <br />
+          <mat-card *ngIf="post?.comments?.length || auth.user">
+            <ng-container *ngIf="auth.user">
+              <mat-form-field>
+                <textarea
+                  matInput
+                  type="text"
+                  placeholder="Comment (HTML)"
+                  [(ngModel)]="comment"
+                  rows="7"
+                  (change)="validateComment(); updateButtonText()"
+                >
+                </textarea>
+              </mat-form-field>
+              <mat-expansion-panel *ngIf="comment">
+                <mat-expansion-panel-header>Preview</mat-expansion-panel-header>
+                <pre [innerHTML]="comment"></pre>
+              </mat-expansion-panel>
+              <br />
+              <button
+                mat-raised-button
+                (click)="addComment()"
+                [disabled]="!comment.trim()"
+                color="accent"
+              >
+                {{ buttonText }}
+              </button>
+            </ng-container>
+            <ng-container
+              *ngIf="post?.comments && post?.comments?.length && auth.user"
+            >
+              <br />
+              <br />
+            </ng-container>
+            <ng-container *ngIf="post?.comments && post?.comments?.length">
+              <h1>Comments</h1>
+              <mat-card-content>
+                <mat-card
+                  *ngFor="let comment of post?.comments"
+                  class="content"
+                >
+                  <mat-card-content>
+                    <pre><small>By {{ comment.author }} at {{ comment.published.toDate() | date: "medium" }}</small></pre>
+                    <pre [innerHTML]="comment.content"></pre>
+                  </mat-card-content>
+                  <mat-card-actions
+                    *ngIf="
+                      isAuthor(post) ||
+                      isCommentAuthor(comment) ||
+                      auth.isSuperadmin
+                    "
+                    align="end"
+                  >
+                    <button
+                      mat-icon-button
+                      aria-label="delete"
+                      (click)="deleteComment(comment.id!)"
+                    >
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                  </mat-card-actions>
+                </mat-card>
+              </mat-card-content>
+            </ng-container>
+          </mat-card>
+        </ng-container>
+
+        <ng-template #editView>
+          <ng-container
+            *ngIf="isAuthor(post) || auth.isSuperadmin; else noEditAccess"
+          >
+            <h1>Edit Post</h1>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title> Edit Post </mat-panel-title>
+              </mat-expansion-panel-header>
+              <mat-card>
+                <mat-card-content>
+                  <mat-form-field>
+                    <textarea
+                      matInput
+                      type="text"
+                      placeholder="Title (HTML)"
+                      [(ngModel)]="title"
+                      (change)="validateEdit()"
+                    >
+                    </textarea>
+                  </mat-form-field>
+                  <mat-expansion-panel *ngIf="title">
+                    <mat-expansion-panel-header
+                      >Preview</mat-expansion-panel-header
+                    >
+                    <pre [innerHTML]="title"></pre>
+                  </mat-expansion-panel>
+                  <br />
+                  <mat-form-field>
+                    <textarea
+                      matInput
+                      placeholder="Content (HTML)"
+                      [(ngModel)]="content"
+                      rows="15"
+                      (change)="validateEdit()"
+                    >
+                    </textarea>
+                  </mat-form-field>
+                  <mat-expansion-panel *ngIf="content">
+                    <mat-expansion-panel-header
+                      >Preview</mat-expansion-panel-header
+                    >
+                    <pre [innerHTML]="content"></pre>
+                  </mat-expansion-panel>
+                  <br />
+                  <mat-form-field>
+                    <textarea
+                      matInput
+                      placeholder="Summary (HTML)"
+                      [(ngModel)]="summary"
+                      rows="5"
+                      (change)="validateEdit()"
+                    >
+                    </textarea>
+                  </mat-form-field>
+                  <mat-expansion-panel *ngIf="summary">
+                    <mat-expansion-panel-header
+                      >Preview</mat-expansion-panel-header
+                    >
+                    <pre [innerHTML]="summary"></pre>
+                  </mat-expansion-panel>
+                  <br /><br /><br />
+                  <button
+                    mat-raised-button
+                    (click)="edit()"
+                    [disabled]="
+                      !title.trim() || !content.trim() || !summary.trim()
+                    "
+                    color="accent"
+                  >
+                    Save
+                  </button>
+                  <button mat-raised-button (click)="cancelEdit()">
+                    Cancel
+                  </button>
+                </mat-card-content>
+              </mat-card>
+            </mat-expansion-panel>
+          </ng-container>
+          <ng-template #noEditAccess>
+            <h1>ERROR: You are cannot edit this post.</h1>
+            <br />
+            It seems that you are no longer have the required privileges to edit
+            this post, and as such you cannot access this page.
+            <br />
+            Please press "View Blog" to return to the view blog version of this
+            page.
+            <br />
+            <button mat-raised-button (click)="cancelEdit()">View Blog</button>
+          </ng-template>
+        </ng-template>
+      </ng-container>
+    </ng-container>
+
+    <ng-template #loading>
+      <h1>Loading Post</h1>
+      <div align="center">
+        <mat-spinner diameter="50"></mat-spinner>
+      </div>
+    </ng-template>
+
+    <ng-template #error>
+      <h1>ERROR: The blog you requested could not be found.</h1>
+      <br />
+      Some common reasons for getting this error are:
+      <ul>
+        <li>Clicking on a broken link</li>
+        <li>Mistyping the URL</li>
+        <li>
+          Attempting to access a blog that has been removed from the website
+        </li>
+      </ul>
+      <br />
+      Please press "Go to Blog" to return to the blog list page of this website.
+      <br />
+      <a routerLink="/blog" mat-raised-button>Go to Blog</a>
+    </ng-template>
+  </ng-container>
+  <ng-template #noInternet>
+    <app-no-internet></app-no-internet>
+  </ng-template>
+</div>

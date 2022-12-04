@@ -1,0 +1,266 @@
+<div class="content">
+  <ng-container *ngIf="onlineService.isOnline | async; else noInternet">
+    <ng-container *ngIf="auth.isSuperadmin; else notSuperadmin">
+      <h1>Administration</h1>
+      <ng-container *ngIf="!isLoadingAdmins; else loadingAdmins">
+        <h2>Admins</h2>
+        <mat-accordion>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>Add or Set Admin</mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-card>
+              <mat-card-content>
+                <mat-form-field>
+                  <input
+                    matInput
+                    type="text"
+                    placeholder="User ID"
+                    [(ngModel)]="uid"
+                    (change)="trim(); updateAdminButtonText()"
+                  />
+                </mat-form-field>
+                <mat-form-field>
+                  <input
+                    matInput
+                    type="email"
+                    placeholder="Email"
+                    [(ngModel)]="email"
+                    (change)="trim(); updateAdminButtonText()"
+                  />
+                </mat-form-field>
+                <br />
+                <button
+                  mat-raised-button
+                  (click)="addAdmin()"
+                  [disabled]="!uid.trim() || !email.trim()"
+                  color="accent"
+                >
+                  {{ adminButtonText }}
+                </button>
+              </mat-card-content>
+            </mat-card>
+          </mat-expansion-panel>
+          <mat-expansion-panel *ngIf="admins.length; else noAdmins">
+            <mat-expansion-panel-header>
+              <mat-panel-title> Admin List </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-list>
+              <mat-list-item *ngFor="let admin of admins" class="content">
+                <pre mat-line>{{ admin.id }}</pre>
+                <pre mat-line>{{ admin.email }}</pre>
+                <button
+                  mat-icon-button
+                  aria-label="delete"
+                  matTooltip="delete admin"
+                  (click)="deleteAdmin(admin.id!)"
+                >
+                  <mat-icon mat-list-icon>delete</mat-icon>
+                </button>
+              </mat-list-item>
+            </mat-list>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </ng-container>
+      <ng-template #loadingAdmins>
+        <div align="center">
+          <mat-spinner diameter="50"></mat-spinner>
+        </div>
+      </ng-template>
+      <ng-template #noAdmins>
+        <p>
+          No admins have been found! This could mean that you are not connected
+          to the internet (which you can easily test by checking your network
+          settings or trying to open another website) or that our server is
+          down. This could also mean that no admins exist, in which case please
+          add an admin.
+        </p>
+      </ng-template>
+    </ng-container>
+
+    <ng-container *ngIf="!isLoadingAchievements; else loadingAchievements">
+      <br />
+      <h2>Achievements</h2>
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>Add Achievement</mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-card>
+            <mat-card-content>
+              <mat-form-field>
+                <input
+                  matInput
+                  type="text"
+                  list="achievementCategories"
+                  placeholder="Category"
+                  [(ngModel)]="achievementCategory"
+                  (change)="trim(); updateAchievementButtonText()"
+                />
+                <datalist id="achievementCategories">
+                  <option
+                    *ngFor="let category of achievementCategories"
+                    [value]="category"
+                  ></option>
+                </datalist>
+              </mat-form-field>
+              <mat-form-field>
+                <input
+                  matInput
+                  type="text"
+                  placeholder="Content"
+                  [(ngModel)]="achievementContent"
+                  (change)="trim(); updateAchievementButtonText()"
+                />
+              </mat-form-field>
+              <br />
+              <button
+                mat-raised-button
+                (click)="addAchievement()"
+                [disabled]="
+                  !achievementCategory.trim() || !achievementContent.trim()
+                "
+                color="accent"
+              >
+                {{ achievementButtonText }}
+              </button>
+            </mat-card-content>
+          </mat-card>
+        </mat-expansion-panel>
+        <mat-expansion-panel *ngIf="achievements.length; else noAchievements">
+          <mat-expansion-panel-header>
+            <mat-panel-title>Achievement List</mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-list>
+            <mat-list-item
+              *ngFor="let achievement of achievements"
+              class="content"
+            >
+              <pre mat-line>{{ achievement.category }}</pre>
+              <pre mat-line>{{ achievement.content }}</pre>
+              <button
+                mat-icon-button
+                aria-label="delete"
+                matTooltip="delete achievement"
+                (click)="deleteAchievement(achievement.id!)"
+              >
+                <mat-icon mat-list-icon>delete</mat-icon>
+              </button>
+            </mat-list-item>
+          </mat-list>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </ng-container>
+    <ng-template #loadingAchievements>
+      <div align="center">
+        <mat-spinner diameter="50"></mat-spinner>
+      </div>
+    </ng-template>
+    <ng-template #noAchievements>
+      <p>
+        No achievements have been found! This could mean that you are not
+        connected to the internet (which you can easily test by checking your
+        network settings or trying to open another website) or that our server
+        is down. This could also mean that no achievements exist, in which case
+        please add an achievement.
+      </p>
+    </ng-template>
+
+    <ng-container *ngIf="!isLoadingHobbies; else loadingHobbies">
+      <br />
+      <h2>Hobbies</h2>
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>Add Hobby</mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-card>
+            <mat-card-content>
+              <mat-form-field>
+                <input
+                  matInput
+                  type="text"
+                  list="hobbyCategories"
+                  placeholder="Category"
+                  [(ngModel)]="hobbyCategory"
+                  (change)="trim(); updateHobbyButtonText()"
+                />
+                <datalist id="hobbyCategories">
+                  <option
+                    *ngFor="let category of hobbyCategories"
+                    [value]="category"
+                  ></option>
+                </datalist>
+              </mat-form-field>
+              <mat-form-field>
+                <input
+                  matInput
+                  type="text"
+                  placeholder="Content"
+                  [(ngModel)]="hobbyContent"
+                  (change)="trim(); updateHobbyButtonText()"
+                />
+              </mat-form-field>
+              <br />
+              <button
+                mat-raised-button
+                (click)="addHobby()"
+                [disabled]="!hobbyCategory.trim() || !hobbyContent.trim()"
+                color="accent"
+              >
+                {{ hobbyButtonText }}
+              </button>
+            </mat-card-content>
+          </mat-card>
+        </mat-expansion-panel>
+        <mat-expansion-panel *ngIf="hobbies.length; else noHobbies">
+          <mat-expansion-panel-header>
+            <mat-panel-title>Hobby List</mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-list>
+            <mat-list-item *ngFor="let hobby of hobbies" class="content">
+              <pre mat-line>{{ hobby.category }}</pre>
+              <pre mat-line>{{ hobby.content }}</pre>
+              <button
+                mat-icon-button
+                aria-label="delete"
+                matTooltip="delete hobby"
+                (click)="deleteHobby(hobby.id!)"
+              >
+                <mat-icon mat-list-icon>delete</mat-icon>
+              </button>
+            </mat-list-item>
+          </mat-list>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </ng-container>
+    <ng-template #loadingHobbies>
+      <div align="center">
+        <mat-spinner diameter="50"></mat-spinner>
+      </div>
+    </ng-template>
+    <ng-template #noHobbies>
+      <p>
+        No hobbies have been found! This could mean that you are not connected
+        to the internet (which you can easily test by checking your network
+        settings or trying to open another website) or that our server is down.
+        This could also mean that no achievements exist, in which case please
+        add a hobby.
+      </p>
+    </ng-template>
+
+    <ng-template #notSuperadmin>
+      <h1>ERROR: You are not the superadmin.</h1>
+      <br />
+      It seems that you are no longer the superadmin, and as such you cannot
+      access this page.
+      <br />
+      Please press "Go to Home" to return to the home page of this website.
+      <br />
+      <a routerLink="/" mat-raised-button>Go to Home</a>
+    </ng-template>
+  </ng-container>
+  <ng-template #noInternet>
+    <app-no-internet></app-no-internet>
+  </ng-template>
+</div>

@@ -1,0 +1,110 @@
+<div class="content">
+  <ng-container *ngIf="onlineService.isOnline | async; else noInternet">
+    <ng-container
+      *ngIf="auth.isAdmin || auth.isSuperadmin; else notAdminOrSuperadmin"
+    >
+      <h1>New Blog</h1>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title> Create a Post </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-card>
+          <mat-card-content>
+            <div>
+              <input
+                type="file"
+                name="file"
+                id="file"
+                accept="image/*"
+                placeholder="Image"
+                value="{{ imageValue }}"
+                (change)="uploadImage($event); updateButtonText()"
+              />
+              <br />
+              <div [hidden]="!uploadPercent">
+                <mat-progress-bar
+                  mode="determinate"
+                  value="{{ uploadPercent | async }}"
+                ></mat-progress-bar>
+              </div>
+              <br />
+              <div [hidden]="!image">
+                <img [src]="image" alt="{{ title }}" />
+              </div>
+            </div>
+            <br /><br /><br />
+            <mat-form-field>
+              <textarea
+                matInput
+                type="text"
+                placeholder="Title (HTML)"
+                [(ngModel)]="title"
+                (change)="validateInput(); updateButtonText()"
+              >
+              </textarea>
+            </mat-form-field>
+            <mat-expansion-panel *ngIf="title">
+              <mat-expansion-panel-header>Preview</mat-expansion-panel-header>
+              <pre [innerHTML]="title"></pre>
+            </mat-expansion-panel>
+            <br />
+            <mat-form-field>
+              <textarea
+                matInput
+                placeholder="Content (HTML)"
+                [(ngModel)]="content"
+                (change)="validateInput(); updateButtonText()"
+                rows="15"
+              >
+              </textarea>
+            </mat-form-field>
+            <mat-expansion-panel *ngIf="content">
+              <mat-expansion-panel-header>Preview</mat-expansion-panel-header>
+              <pre [innerHTML]="content"></pre>
+            </mat-expansion-panel>
+            <br />
+            <mat-form-field>
+              <textarea
+                matInput
+                placeholder="Summary (HTML)"
+                [(ngModel)]="summary"
+                (change)="validateInput(); updateButtonText()"
+                rows="5"
+              >
+              </textarea>
+            </mat-form-field>
+            <mat-expansion-panel *ngIf="summary">
+              <mat-expansion-panel-header>Preview</mat-expansion-panel-header>
+              <pre [innerHTML]="summary"></pre>
+            </mat-expansion-panel>
+            <br /><br /><br />
+            <button
+              mat-raised-button
+              (click)="createPost()"
+              [disabled]="
+                !title.trim() || !content.trim() || !summary.trim() || !image
+              "
+              color="accent"
+            >
+              {{ buttonText }}
+            </button>
+          </mat-card-content>
+        </mat-card>
+      </mat-expansion-panel>
+    </ng-container>
+
+    <ng-template #notAdminOrSuperadmin>
+      <h1>ERROR: You are not an admin or the superadmin.</h1>
+      <br />
+      It seems that you are no longer an admin or the superadmin, and as such
+      you cannot access this page.
+      <br />
+      Please press "Go to Home" to return to the home page of this website.
+      <br />
+      <a routerLink="/" mat-raised-button>Go to Home</a>
+    </ng-template>
+  </ng-container>
+  <ng-template #noInternet>
+    <app-no-internet></app-no-internet>
+  </ng-template>
+</div>

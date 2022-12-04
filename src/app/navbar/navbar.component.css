@@ -1,0 +1,135 @@
+.title {
+  color: inherit;
+  text-decoration: none;
+  font-size: inherit;
+}
+
+.title:hover {
+  animation: gradientSlide 300ms ease-in-out infinite;
+}
+
+@keyframes gradientSlide {
+  0% {
+    background: linear-gradient(
+      to left,
+      blue,
+      aqua,
+      lightgreen,
+      yellow,
+      orange,
+      darksalmon
+    );
+    background-clip: text;
+    color: transparent;
+  }
+
+  10% {
+    background: linear-gradient(
+      to left,
+      aqua,
+      lightgreen,
+      yellow,
+      orange,
+      darksalmon,
+      blue
+    );
+    background-clip: text;
+    color: transparent;
+  }
+
+  30% {
+    background: linear-gradient(
+      to left,
+      lightgreen,
+      yellow,
+      orange,
+      darksalmon,
+      blue,
+      aqua
+    );
+    background-clip: text;
+    color: transparent;
+  }
+
+  50% {
+    background: linear-gradient(
+      to left,
+      yellow,
+      orange,
+      darksalmon,
+      blue,
+      aqua,
+      lightgreen
+    );
+    background-clip: text;
+    color: transparent;
+  }
+
+  70% {
+    background: linear-gradient(
+      to left,
+      orange,
+      darksalmon,
+      blue,
+      aqua,
+      lightgreen,
+      yellow
+    );
+    background-clip: text;
+    color: transparent;
+  }
+
+  90% {
+    background: linear-gradient(
+      to left,
+      darksalmon,
+      blue,
+      aqua,
+      lightgreen,
+      yellow,
+      orange
+    );
+    background-clip: text;
+    color: transparent;
+  }
+}
+
+.space-after {
+  margin-right: 0.6rem;
+}
+
+nav {
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+  z-index: 1;
+}
+
+mat-toolbar-row {
+  overflow: auto;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+@media screen and (max-width: 42rem) {
+  .removefirst {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 37rem) {
+  .removesecond {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 28rem) {
+  .space-after {
+    margin-right: 0;
+  }
+  .removethird {
+    display: none;
+  }
+}

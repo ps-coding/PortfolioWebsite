@@ -1,0 +1,41 @@
+<pre>
+Here is a fun game to play to pass some time. Click the button to you heart's satisfaction. As you click you will be able to see your speed. Click the button to increment your count, and click reset to clear your count and high speed. Your progress and high speed will be saved on device between sessions. You can challenge yourself to see how many times you can click the button within a certain time period or to see how high of a speed you can get. You can also race with your friends to see who can click the button a hundred times the fastest or to see who can get the highest speed. Have fun!</pre
+>
+<mat-card>
+  <mat-card-content>
+    <ng-container *ngIf="!delayOn; else loading">
+      <ng-container *ngIf="speed; else noSpeed">
+        <span>
+          Your speed is {{ speed.toFixed(2) }}
+          {{ speed > 1 ? "clicks" : "click" }} per second.
+        </span>
+      </ng-container>
+      <ng-template #noSpeed>
+        <span *ngIf="highSpeed">
+          Your high speed is {{ highSpeed.toFixed(2) }}
+          {{ highSpeed > 1 ? "clicks" : "click" }} per second.
+        </span>
+        <span>Start clicking to see your speed.</span>
+      </ng-template>
+    </ng-container>
+    <ng-template #loading>
+      Loading speed...
+      <small>
+        Your speed will start displaying once you have clicked the button at
+        least three times.
+      </small>
+    </ng-template>
+
+    <br />
+    <br />
+    <button
+      class="space-after"
+      mat-raised-button
+      color="warn"
+      (click)="increment()"
+    >
+      {{ clickCount === 0 ? "Click Me" : clickCount }}
+    </button>
+    <button mat-flat-button (click)="reset()">Reset</button>
+  </mat-card-content>
+</mat-card>

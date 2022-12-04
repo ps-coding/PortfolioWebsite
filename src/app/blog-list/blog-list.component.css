@@ -1,0 +1,32 @@
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(18.5rem, 100%), 1fr));
+  grid-auto-rows: auto;
+  gap: 1rem;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.title-image {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 0.6rem;
+  max-width: 100%;
+}
+
+.blog-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+mat-card {
+  display: flex;
+  flex-direction: column;
+}
+
+mat-card-content {
+  flex-grow: 1;
+}

@@ -1,0 +1,137 @@
+<div class="content">
+  <ng-container *ngIf="onlineService.isOnline | async; else noInternet">
+    <h1>Blogs</h1>
+    <ng-container *ngIf="originalPosts && originalPosts?.length">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>Filter</mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-card>
+          <mat-card-content>
+            <mat-form-field>
+              <input
+                matInput
+                type="search"
+                placeholder="Filter by Title (Raw HTML)"
+                [(ngModel)]="titleFilter"
+                (change)="filter()"
+              />
+              <button
+                mat-icon-button
+                aria-label="clear"
+                matSuffix
+                matTooltip="clear title filter"
+                (click)="clearTitleFilter()"
+              >
+                <mat-icon>clear</mat-icon>
+              </button>
+            </mat-form-field>
+            <mat-form-field>
+              <input
+                matInput
+                type="search"
+                placeholder="Filter by Content (Raw HTML)"
+                [(ngModel)]="contentFilter"
+                (change)="filter()"
+              />
+              <button
+                mat-icon-button
+                aria-label="clear"
+                matSuffix
+                matTooltip="clear content filter"
+                (click)="clearContentFilter()"
+              >
+                <mat-icon>clear</mat-icon>
+              </button>
+            </mat-form-field>
+            <mat-form-field>
+              <input
+                matInput
+                type="search"
+                placeholder="Filter by Summary (Raw HTML)"
+                [(ngModel)]="summaryFilter"
+                (change)="filter()"
+              />
+              <button
+                mat-icon-button
+                aria-label="clear"
+                matSuffix
+                matTooltip="clear summary filter"
+                (click)="clearSummaryFilter()"
+              >
+                <mat-icon>clear</mat-icon>
+              </button>
+            </mat-form-field>
+          </mat-card-content>
+        </mat-card>
+      </mat-expansion-panel>
+      <br />
+    </ng-container>
+    <ng-container *ngIf="postsToDisplay; else loading">
+      <div *ngIf="postsToDisplay?.length; else noBlogs" class="grid-container">
+        <mat-card *ngFor="let post of postsToDisplay">
+          <mat-card-content>
+            <a routerLink="{{ post.id }}" class="blog-link">
+              <img
+                src="{{ post.image }}"
+                alt="{{ post.title }}"
+                class="title-image"
+              />
+              <pre [innerHTML]="post.title"></pre>
+              <pre><small>Published by {{ post.author }} at {{ post.published.toDate() | date: "medium" }}</small></pre>
+              <ng-container *ngIf="post.edited">
+                <pre><small>Edited at {{ post.edited?.toDate() | date: "medium" }}</small></pre>
+              </ng-container>
+            </a>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title> Summary </mat-panel-title>
+              </mat-expansion-panel-header>
+              <ng-template matExpansionPanelContent>
+                <pre [innerHTML]="post.summary"></pre>
+              </ng-template>
+            </mat-expansion-panel>
+          </mat-card-content>
+          <br />
+          <mat-card-actions
+            *ngIf="isAuthor(post) || auth.isSuperadmin"
+            align="end"
+          >
+            <button
+              mat-icon-button
+              aria-label="delete"
+              matTooltip="delete post"
+              (click)="delete(post.id!)"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+      <ng-template #noBlogs>
+        <p *ngIf="originalPosts && originalPosts?.length; else noBlogsExist">
+          No blogs match the entered query! Please try a different filter.
+        </p>
+        <ng-template #noBlogsExist>
+          <p>
+            No blogs have been found! This could mean that you are not connected
+            to the internet (which you can easily test by checking your network
+            settings or trying to open another website). This could also mean
+            that no blogs exist or that our server is down (not as likely, but
+            possible), in which case please check back later.
+          </p>
+        </ng-template>
+      </ng-template>
+    </ng-container>
+  </ng-container>
+
+  <ng-template #loading>
+    <div align="center">
+      <mat-spinner diameter="50"></mat-spinner>
+    </div>
+  </ng-template>
+
+  <ng-template #noInternet>
+    <app-no-internet></app-no-internet>
+  </ng-template>
+</div>

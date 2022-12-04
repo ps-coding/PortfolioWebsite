@@ -1,0 +1,22 @@
+footer {
+  position: sticky;
+  position: -webkit-sticky;
+  bottom: 0;
+  z-index: 1;
+  background-color: #212121;
+  color: #fff;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  padding: 0.6rem;
+}
+
+.spacer {
+  flex-grow: 1;
+}
+
+.link {
+  transform: scale(0.75);
+}
