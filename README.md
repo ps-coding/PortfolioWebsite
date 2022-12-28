@@ -4,6 +4,8 @@
 
 This is my **personal portfolio** website. It is online **[here](https://shahprasham.com)**.
 
+It was originally built **2 years ago** so it may not work with the latest versions of Node.js or its dependencies.
+
 This website was created using **Angular and Firebase** and built from *scratch*.
 
 It has the following features:
