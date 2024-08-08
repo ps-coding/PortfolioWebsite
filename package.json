@@ -2,11 +2,12 @@
   "name": "portfolio-website",
   "version": "1.0.0",
   "scripts": {
-    "ng": "ng",
+    "ng": "export NODE_OPTIONS=--openssl-legacy-provider; ng",
     "start": "export NODE_OPTIONS=--openssl-legacy-provider; ng serve",
     "build": "export NODE_OPTIONS=--openssl-legacy-provider; ng build",
     "watch": "export NODE_OPTIONS=--openssl-legacy-provider; ng build --watch --configuration development",
-    "test": "export NODE_OPTIONS=--openssl-legacy-provider; ng test"
+    "test": "export NODE_OPTIONS=--openssl-legacy-provider; ng test",
+    "deploy": "export NODE_OPTIONS=--openssl-legacy-provider; ng deploy"
   },
   "private": true,
   "dependencies": {
