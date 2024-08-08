@@ -4,7 +4,7 @@
 
 This is my **personal portfolio** website. It is online **[here](https://shahprasham.com)**.
 
-I originally built this website independently **when I was in 8<sup>th</sup> grade.** I am in the process of modernizing it.
+I originally built this website independently **when I was in 8<sup>th</sup> grade.** I am constantly modernizing it.
 
 This website was created using **Angular, Firebase, and various other technologies**.
 
