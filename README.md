@@ -1,10 +1,13 @@
 # PortfolioWebsite
 
+## Status: Archived
+This was a highly over-engineered website that I used to develop my skills in role-based authentication, database management (Firebase), security, Google Analytics, Boostrap, responsive design, build pipelines, Angular, PWA, and other technologies. This is a **fantastic template** for any large-scale blog/portfolio website. However, it is a bit excessive for me now. Thus, I have archived this repository. I hope it can help others and serve as a demonstration of my various skills (although I have significantly improved my skills in all of the aforementioned technologies since creating this website).
+
 ## About
 
-This is my **personal portfolio** website. It is online **[here](https://shahprasham.com)**.
+This is my **personal portfolio** website. It is online **[here](https://old.shahprasham.com)**.
 
-It was originally built **2 years ago** so it may not work with the latest versions of Node.js or its dependencies.
+It was originally built **when I was in 8<sup>th</sup> grade** so it may not work with the latest versions of Node.js or its dependencies.
 
 This website was created using **Angular and Firebase** and built from *scratch*.
 
