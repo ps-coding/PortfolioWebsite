@@ -50,7 +50,7 @@ While it is very advanced for a personal site, it is a **great template** to use
 
 ## Setup
 
-For a live and fully-functional version, visit (https://shahprasham.com).
+For a live and fully-functional version, visit (https://old.shahprasham.com).
 
 ### Local
 1. For a local version, make sure you have the *LTS version* of [Node.js](https://nodejs.org) and NPM installed (NPM should come with your Node.js installation)
