@@ -60,6 +60,10 @@ pre {
   overflow: auto;
 }
 
+a {
+  color: white;
+}
+
 mat-card {
   overflow: auto;
 }

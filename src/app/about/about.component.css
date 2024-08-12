@@ -1,6 +1,7 @@
 .flex-item {
   display: flex;
   justify-content: space-between;
+  align-self: flex-start;
   overflow: auto;
 }
 
@@ -8,13 +9,9 @@
   margin-right: 0.6rem;
 }
 
-.right-item {
-  width: 50%;
-  margin: auto;
-}
-
 .right-item img {
   display: block;
+  max-width: 250px;
   width: 100%;
   height: auto;
 }
