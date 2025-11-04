@@ -2,7 +2,7 @@
 
 ## About
 
-This is my **old personal portfolio** website. It is online **[here](https://shahprasham.com)**.
+This is my **old personal portfolio** website. It is still online **[here](https://shahprasham.com)**.
 
 I originally built this website independently **when I was in 8<sup>th</sup> grade.** I have frequently modernized it, but have since ceased development. It stands more as an exhibition of technical skills and as a template for others than an actual, practical portfolio for myself.
 
