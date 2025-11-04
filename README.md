@@ -2,9 +2,9 @@
 
 ## About
 
-This is my **personal portfolio** website. It is online **[here](https://shahprasham.com)**.
+This is my **old personal portfolio** website. It is online **[here](https://shahprasham.com)**.
 
-I originally built this website independently **when I was in 8<sup>th</sup> grade.** I am constantly modernizing it.
+I originally built this website independently **when I was in 8<sup>th</sup> grade.** I have frequently modernized it, but have since ceased development. It stands more as an exhibition of technical skills and as a template for others than an actual, practical portfolio for myself.
 
 This website was created using **Angular, Firebase, and various other technologies**.
 
@@ -47,7 +47,7 @@ It has the following features:
   - It can *run without internet connection* (although blog features will be unavailable during that time)
   - It can be installed as an app on phones and computers though supported browsers
 
-While this website is very advanced, I still believe that it is a **great template** to use for a personal or business website.
+While this website is very advanced/over the top, I still believe that it is a **great template** to use for a personal or business website.
 
 ## Setup
 
