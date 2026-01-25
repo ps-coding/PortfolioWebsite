@@ -1,4 +1,4 @@
-# Portfolio Website *Template* (formerly [shahprasham.com](https://shahprasham.com))
+# Portfolio Website *Template* (formerly [shahprasham.com](https://shahprasham.com), no longer active)
 
 ## About
 
